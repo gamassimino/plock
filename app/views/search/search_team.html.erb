@@ -1,0 +1,19 @@
+<h1>Team Search</h1>
+
+<%= form_for search_team_path, method: :get do |f| %>
+  <p>
+    <%= f.label "Search for" %>
+    <%= text_field_tag :q, params[:q] %>
+    <%= submit_tag "search", name: nil %>
+  </p>
+<% end %>
+
+<ul>
+  <% @team.each do |team| %>
+    <li>
+      <h3>
+        <%= link_to team.name, controller: "teams", action: "show", id: team._id%>
+      </h3>
+    </li>
+  <% end %>
+</ul>

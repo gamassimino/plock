@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   resources :users
   get 'me/dataUser' => 'users#dataUser', :defaults => { :format => 'json' }
 
+  get 'search_project', to: 'search#search_project'
+  get 'search_team', to: 'search#search_team'
+  get 'search_track', to: 'search#search_track'
+  get 'search_user', to: 'search#search_user'
+  
   resources :teams
   resources :teams do
     get 'accept_invitation', on: :collection
