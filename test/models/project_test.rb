@@ -73,7 +73,7 @@ class ProjectTest < ActiveSupport::TestCase
 
   test 'check not users in the project' do
     p = @project
-    assert_empty (p.users)
+    assert_not_empty (p.users)
   end
 
   test 'create project with team' do
