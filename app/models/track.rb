@@ -4,8 +4,7 @@ require 'elasticsearch/model'
 class Track < ApplicationRecord
 
   include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
-
+  
   validates :name, :description, presence: true
   belongs_to :project, dependent: :destroy
   belongs_to :user, dependent: :destroy
@@ -36,4 +35,3 @@ class Track < ApplicationRecord
   end
 
 end
-Track.import(force: true)

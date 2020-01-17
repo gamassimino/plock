@@ -57,6 +57,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #elastic search
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+gem 'elasticsearch-transport'
 gem 'faraday', '0.17.3'
 
 gem 'devise'

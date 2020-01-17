@@ -7,7 +7,6 @@ require 'elasticsearch/model'
 class Team < ApplicationRecord
 
   include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
 
   has_many :team_users
   has_many :users, through: :team_users, source: :user
@@ -32,6 +31,4 @@ class Team < ApplicationRecord
       indexes :name, type: :text
     end
   end
-
 end
-Team.import(force: true)

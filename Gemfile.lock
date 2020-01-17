@@ -80,6 +80,7 @@ GEM
       railties (>= 3.1)
     devise (4.7.1)
       bcrypt (~> 3.0)
+      multi_json
       orm_adapter (~> 0.1)
       railties (>= 4.1.0)
       responders
@@ -94,6 +95,8 @@ GEM
       elasticsearch (> 1)
       hashie
     elasticsearch-rails (7.0.0)
+      faraday
+      multi_json
     elasticsearch-transport (7.4.0)
       faraday
       multi_json
@@ -246,6 +249,7 @@ DEPENDENCIES
   devise
   elasticsearch-model
   elasticsearch-rails
+  elasticsearch-transport
   faraday (= 0.17.3)
   jbuilder (~> 2.7)
   letter_opener

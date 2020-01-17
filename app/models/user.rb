@@ -3,8 +3,7 @@ require 'elasticsearch/model'
 class User < ApplicationRecord
 
   include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
-
+  
   has_many :team_users
   has_many :tracks
   has_many :teams, through: :team_users
@@ -15,24 +14,21 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
    def self.search(query)
-    __elasticsearch__.search(
-     {
+    __elasticsearch__.search({
       query: {
-       multi_match: {
-        query: query,
-        fields: ['name', 'lastname', 'email']
-       }
-     }
-    }
-    )
+        multi_match: {
+          query: query,
+          fields: ['name', 'lastname', 'email']
+        }
+      }
+    })
    end
 
-   settings do
+  settings do
     mappings dynamic: false do
       indexes :name, type: :text
       indexes :lastname, type: :text, analyzer: :english
       indexes :email, type: :text, analyzer: :english
     end
-  end       
+  end    
 end
-User.import(force: true)
