@@ -13,5 +13,6 @@ module Types
     field :user, UserType, null: false
     field :team, TeamType, null: true
     field :company, CompanyType, null: true
+    field :tracks, [TrackType], null: true
   end
 end

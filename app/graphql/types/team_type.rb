@@ -8,5 +8,7 @@ module Types
     field :name, String, null: false
     field :created_at, String, null: false
     field :updated_at, String, null: false
+    field :users, [UserType], null: true
+    field :projects, [ProjectType], null: true
   end
 end

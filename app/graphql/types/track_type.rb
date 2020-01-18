@@ -9,9 +9,9 @@ module Types
     field :description, String, null: false
     field :starts_at, String, null: true
     field :ends_at, String, null: true
-    field :created_at, String, null: false
-    field :updated_at, String, null: false
-    field :status, Boolean, null: true
+    field :created_at, String, null: true
+    field :updated_at, String, null: true
+    field :status, Boolean, null: false
     field :user, UserType, null: false
     field :project, ProjectType, null: false
   end

@@ -20,465 +20,190 @@ module Types
         @company = companies(:one)
       end
 
-      test 'find project' do
+      test 'all project create by current user' do
         query_string = <<-GRAPHQL
-				query($id: ID!){
-						project(id: $id){
-							id
-							name
-							repository
-							startAt
-							user {
-								id
-								name
-								lastname
-								email
-							}
-							team {
-								id
-								name
-							}
-							company {
-								id
-								name
-								description
-							}
-						}
-					}
+          query{
+            projects{
+              name
+              repository
+              startAt
+              user {
+                name
+                lastname
+                email
+              }
+              team{
+                name
+                users{
+                  name
+                  lastname
+                  email
+                }
+              }
+              tracks{
+                name
+                startsAt
+              }
+              company{
+                name
+                description
+              }
+            }
+          }
         GRAPHQL
-        project_id = @project.id
-        result = PlockSchema.execute(
-          query_string,
-          variables: { id: project_id },
-          context: {}
-        )
-        project_result = result['data']['project']
 
-        assert_not_nil result
-        assert_equal(@project.name, project_result['name'])
-      end
-
-      test 'all projects' do
-        query_string = <<-GRAPHQL
-				query{
-						projects{
-							id
-							name
-							repository
-							startAt
-							user {
-								id
-								name
-								lastname
-								email
-							}
-							team {
-								id
-								name
-							}
-							company {
-								id
-								name
-								description
-							}
-						}
-					}
-        GRAPHQL
+        context = {
+          current_user: @user,
+        }
         result = PlockSchema.execute(
           query_string,
           variables: {},
-          context: {}
+          context: context 
         )
-        project_result = result['data']['projects'][0]['name']
+        project_one_name = result['data']['projects'][0]['name']
+        project_one_tracks_one_name = result['data']['projects'][0]['tracks'][0]['name']
+        project_one_team_name = result['data']['projects'][0]['team']['name']
+        project_one_team_members_one_name = result['data']['projects'][0]['team']['users'][0]['name']
 
         assert_not_nil result
-        assert_equal(@project.name, project_result)
+        assert_equal(@project.name, project_one_name)
+        assert_equal(@track.name, project_one_tracks_one_name)
+        assert_equal(@team.name, project_one_team_name)
+        assert_equal(@user1.name, project_one_team_members_one_name)
       end
 
-      test 'find projects with a given user' do
-        query_string = <<-GRAPHQL
-				query($id: ID!){
-					projectsUser(id: $id){
-							id
-							name
-							repository
-							startAt
-							user {
-								id
-								name
-								lastname
-								email
-							}
-							team {
-								id
-								name
-							}
-							company {
-								id
-								name
-								description
-							}
-						}
-					}
-        GRAPHQL
+      # test 'all projects' do
+      #   query_string = <<-GRAPHQL
+      #     query{
+      #       projects{
+      #         id
+      #         name
+      #         repository
+      #         startAt
+      #         user {
+      #           id
+      #           name
+      #           lastname
+      #           email
+      #         }
+      #         team {
+      #           id
+      #           name
+      #         }
+      #         company {
+      #           id
+      #           name
+      #           description
+      #         }
+      #       }
+      #     }
+      #   GRAPHQL
+      #   result = PlockSchema.execute(
+      #     query_string,
+      #     variables: {},
+      #     context: {}
+      #   )
+      #   project_result = result['data']['projects'][0]['name']
 
-        user_id = @user.id
-        result = PlockSchema.execute(
-          query_string,
-          variables: { id: user_id },
-          context: {}
-        )
-        project_result = result['data']['projectsUser'][0]['name']
+      #   assert_not_nil result
+      #   assert_equal(@project.name, project_result)
+      # end
 
-        assert_not_nil result
-        assert_equal(@project.name, project_result)
-      end
+      # test 'find tracks with a given user' do
+      #   query_string = <<-GRAPHQL
+      #     query{
+      #       tracksUser{
+      #         id
+      #         name
+      #         description
+      #         startsAt
+      #         endsAt
+      #         status
+      #         user {
+      #           id
+      #           name
+      #           lastname
+      #           email
+      #         }
+      #         project {
+      #           id
+      #           name
+      #           repository
+      #         }
+      #       }
+      #     }
+      #   GRAPHQL
 
-      test 'find projects with a given company' do
-        query_string = <<-GRAPHQL
-				query($id: ID!){
-					projectsCompany(id: $id){
-							id
-							name
-							repository
-							startAt
-							user {
-								id
-								name
-								lastname
-								email
-							}
-							team {
-								id
-								name
-							}
-							company {
-								id
-								name
-								description
-							}
-						}
-					}
-        GRAPHQL
+      #   result = PlockSchema.execute(
+      #     query_string,
+      #     variables: {},
+      #     context: {}
+      #   )
+      #   tracks_result = result['data']['tracksUser'][0]['name']
 
-        company_id = @company.id
-        result = PlockSchema.execute(
-          query_string,
-          variables: { id: company_id },
-          context: {}
-        )
-        project_result = result['data']['projectsCompany'][0]['name']
+      #   assert_not_nil result
+      #   assert_equal(@track.name, tracks_result)
+      # end
 
-        assert_not_nil result
-        assert_equal(@project.name, project_result)
-      end
+      # test 'find tracks with a given project' do
+      #   query_string = <<-GRAPHQL
+      #     query($id: ID!){
+      #       tracksProject(id: $id){
+      #         id
+      #         name
+      #         description
+      #         startsAt
+      #         endsAt
+      #         status
+      #         user {
+      #           id
+      #           name
+      #           lastname
+      #           email
+      #         }
+      #         project {
+      #           id
+      #           name
+      #           repository
+      #         }
+      #       }
+      #     }
+      #   GRAPHQL
 
-      test 'find projects with a given team' do
-        query_string = <<-GRAPHQL
-				query($id: ID!){
-					projectsTeam(id: $id){
-							id
-							name
-							repository
-							startAt
-							user {
-								id
-								name
-								lastname
-								email
-							}
-							team {
-								id
-								name
-							}
-							company {
-								id
-								name
-								description
-							}
-						}
-					}
-        GRAPHQL
+      #   project_id = @project1.id
+      #   result = PlockSchema.execute(
+      #     query_string,
+      #     variables: { id: project_id },
+      #     context: {}
+      #   )
+      #   tracks_result = result['data']['tracksProject'][0]['name']
 
-        team_id = @team.id
-        result = PlockSchema.execute(
-          query_string,
-          variables: { id: team_id },
-          context: {}
-        )
-        project_result = result['data']['projectsTeam'][0]['name']
+      #   assert_not_nil result
+      #   assert_equal(@track.name, tracks_result)
+      # end
 
-        assert_not_nil result
-        assert_equal(@project.name, project_result)
-      end
+      # test 'find members for a team' do
+      #   query_string = <<-GRAPHQL
+      #     query($id: ID!){
+      #       membersTeam(id: $id){
+      #         name
+      #         lastname
+      #         email
+      #       }
+      #     }
+      #   GRAPHQL
 
-      test 'find tracks with a given user' do
-        query_string = <<-GRAPHQL
-				query($id: ID!){
-					tracksUser(id: $id){
-						id
-						name
-						description
-						startsAt
-						endsAt
-						status
-						user {
-							id
-							name
-							lastname
-							email
-						}
-						project {
-							id
-							name
-							repository
-						}
-					}
-				}
-        GRAPHQL
+      #   team_id = @team.id
+      #   result = PlockSchema.execute(
+      #     query_string,
+      #     variables: { id: team_id },
+      #     context: {}
+      #   )
+      #   member_result = result['data']['membersTeam'][0]['name']
 
-        user_id = @user1.id
-        result = PlockSchema.execute(
-          query_string,
-          variables: { id: user_id },
-          context: {}
-        )
-        tracks_result = result['data']['tracksUser'][0]['name']
-
-        assert_not_nil result
-        assert_equal(@track.name, tracks_result)
-      end
-
-      test 'find tracks with a given project' do
-        query_string = <<-GRAPHQL
-				query($id: ID!){
-					tracksProject(id: $id){
-						id
-						name
-						description
-						startsAt
-						endsAt
-						status
-						user {
-							id
-							name
-							lastname
-							email
-						}
-						project {
-							id
-							name
-							repository
-						}
-					}
-				}
-        GRAPHQL
-
-        project_id = @project1.id
-        result = PlockSchema.execute(
-          query_string,
-          variables: { id: project_id },
-          context: {}
-        )
-        tracks_result = result['data']['tracksProject'][0]['name']
-
-        assert_not_nil result
-        assert_equal(@track.name, tracks_result)
-      end
-
-      test 'find tracks finished by a user' do
-        query_string = <<-GRAPHQL
-				query($id: ID!){
-					tracksUserFinished(id: $id){
-						id
-						name
-						description
-						startsAt
-						endsAt
-						status
-						user {
-							id
-							name
-							lastname
-							email
-						}
-						project {
-							id
-							name
-							repository
-						}
-					}
-				}
-        GRAPHQL
-
-        user_id = @user1.id
-        result = PlockSchema.execute(
-          query_string,
-          variables: { id: user_id },
-          context: {}
-        )
-        tracks_result = result['data']['tracksUserFinished'][0]['name']
-
-        assert_not_nil result
-        assert_equal(@track.name, tracks_result)
-      end
-
-      test 'find tracks not finished by a user' do
-        query_string = <<-GRAPHQL
-				query($id: ID!){
-					tracksUserNotFinished(id: $id){
-						id
-						name
-						description
-						startsAt
-						endsAt
-						status
-						user {
-							id
-							name
-							lastname
-							email
-						}
-						project {
-							id
-							name
-							repository
-						}
-					}
-				}
-        GRAPHQL
-
-        user_id = @user1.id
-        result = PlockSchema.execute(
-          query_string,
-          variables: { id: user_id },
-          context: {}
-        )
-        tracks_result = result['data']['tracksUserNotFinished'][0]['name']
-
-        assert_not_nil result
-        assert_equal(@track1.name, tracks_result)
-      end
-
-      test 'find tracks not finished by a project' do
-        query_string = <<-GRAPHQL
-				query($id: ID!){
-					tracksProjectNotFinished(id: $id){
-						id
-						name
-						description
-						startsAt
-						endsAt
-						status
-						user {
-							id
-							name
-							lastname
-							email
-						}
-						project {
-							id
-							name
-							repository
-						}
-					}
-				}
-        GRAPHQL
-
-        project_id = @project1.id
-        result = PlockSchema.execute(
-          query_string,
-          variables: { id: project_id },
-          context: {}
-        )
-        tracks_result = result['data']['tracksProjectNotFinished'][0]['name']
-
-        assert_not_nil result
-        assert_equal(@track.name, tracks_result)
-      end
-
-      test 'find tracks finished by a project' do
-        query_string = <<-GRAPHQL
-				query($id: ID!){
-					tracksProjectFinished(id: $id){
-						id
-						name
-						description
-						startsAt
-						endsAt
-						status
-						user {
-							id
-							name
-							lastname
-							email
-						}
-						project {
-							id
-							name
-							repository
-						}
-					}
-				}
-        GRAPHQL
-
-        project_id = @project1.id
-        result = PlockSchema.execute(
-          query_string,
-          variables: { id: project_id },
-          context: {}
-        )
-        tracks_result = result['data']['tracksProjectFinished'][0]['name']
-
-        assert_not_nil result
-        assert_equal(@track.name, tracks_result)
-      end
-
-      test 'find members for a team' do
-        query_string = <<-GRAPHQL
-				query($id: ID!){
-					membersTeam(id: $id){
-						name
-						lastname
-						email
-					}
-				}
-        GRAPHQL
-
-        team_id = @team.id
-        result = PlockSchema.execute(
-          query_string,
-          variables: { id: team_id },
-          context: {}
-        )
-        member_result = result['data']['membersTeam'][0]['name']
-
-        assert_not_nil result
-        assert_equal(@user1.name, member_result)
-      end
-
-      test 'find team for a user' do
-        query_string = <<-GRAPHQL
-				query($id: ID!){
-					teamsUser(id: $id){
-						name
-					}
-				}
-
-
-        GRAPHQL
-
-        user_id = @user1.id
-        result = PlockSchema.execute(
-          query_string,
-          variables: { id: user_id },
-          context: {}
-        )
-        team_result = result['data']['teamsUser'][0]['name']
-
-        assert_not_nil result
-        assert_equal(@team.name, team_result)
-      end
+      #   assert_not_nil result
+      #   assert_equal(@user1.name, member_result)
+      # end
     end
   end
 end

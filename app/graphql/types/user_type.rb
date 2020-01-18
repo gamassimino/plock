@@ -10,5 +10,7 @@ module Types
     field :email, String, null: false
     field :created_at, String, null: false
     field :updated_at, String, null: false
+    field :tracks, [TrackType], null: true
+    field :projects, [ProjectType], null: true
   end
 end

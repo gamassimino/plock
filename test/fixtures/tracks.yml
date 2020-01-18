@@ -6,8 +6,8 @@ one:
   starts_at: 2020-01-06 14:36:25
   ends_at: 2020-01-06 14:36:25
   status: true
-  user: one
-  project: two
+  user: matias
+  project: one
 
 two:
   name: MyString
@@ -15,5 +15,5 @@ two:
   starts_at: 2020-01-06 14:36:25
   ends_at: 2020-01-06 14:36:25
   status: false
-  user: one
+  user: matias
   project: two
