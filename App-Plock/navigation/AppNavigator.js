@@ -5,7 +5,8 @@ import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 import SignInScreen from '../screens/signIn/SignInScreen';
-
+import HomeScreen from '../screens/home/HomeScreen';
+import Tracker from '../screens/timer/TimerTrack';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -15,6 +16,8 @@ const config = Platform.select({
 const AuthStack = createStackNavigator(
   {
     SignIn: SignInScreen,
+    Home: HomeScreen,
+    Tracker: Tracker,
   },
   config
 );

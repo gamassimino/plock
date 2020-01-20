@@ -14,7 +14,6 @@ export default class SignInScreen extends React.Component {
   static navigationOptions ={
     header: null,
   };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -30,7 +29,7 @@ export default class SignInScreen extends React.Component {
             <Image
               source={
                 __DEV__
-                  ? require('../home/plock.png')
+                  ? require('../home/68930.png')
                   : require('../home/robot-prod.png')
               }
               style={styles.welcomeImage}
@@ -81,6 +80,7 @@ export default class SignInScreen extends React.Component {
   };
 
   _signIn = () => {
+    this.props.navigation.navigate('Home');
   };
 }
 

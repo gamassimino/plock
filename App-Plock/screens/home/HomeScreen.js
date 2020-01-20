@@ -39,7 +39,7 @@ export default class HomeScreen extends React.Component {
               </View>
 
               <View style={styles.button}>
-                <Button color="#37435D" title="See my stats" onPress={this._handleStats} />
+                <Button color="#37435D" title="See my tracks" onPress={this._handleStats} />
               </View>
 
               <View style={styles.button}>
@@ -47,7 +47,7 @@ export default class HomeScreen extends React.Component {
               </View>
 
               <View style={styles.button}>
-                <Button color="#37435D" title="See my tracks" onPress={this._handlesScore} />
+                <Button color="#37435D" title="See my stats" onPress={this._handlesScore} />
               </View>
 
               <Text onPress={this._handleLogout} style={styles.logout}  >
@@ -70,6 +70,7 @@ export default class HomeScreen extends React.Component {
   };
 
   _handleStats = async () => {
+    this.props.navigation.navigate('Tracker');
   };
 
 
