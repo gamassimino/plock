@@ -13,3 +13,12 @@ two:
     user_id: 2
     team_id: 2
 # column: value
+
+teamUser1:
+    user_id: 999
+    team_id: 999
+
+teamUser1:
+    user_id: 888
+    team_id: 888
+

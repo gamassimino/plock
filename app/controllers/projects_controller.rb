@@ -71,10 +71,13 @@ class ProjectsController < ApplicationController
 
   def dataProject
     @project = Project.find(params[:project_id])
-    render json: @project.team.users.map {|user| {
-      user: user.name,
-      hour: ProjectUserStat.new(user).call }
-    }.reject(&:empty?)  
+    result = @project.team.users.to_a.map do |user|
+      {
+        user: user.name,
+        hour: ProjectUserStat.new(user).call
+      }
+    end
+    render json: result.present? ? result : [].to_json
   end
 
   private

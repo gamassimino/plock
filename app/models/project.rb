@@ -7,6 +7,7 @@ require 'elasticsearch/model'
 class Project < ApplicationRecord
   
   include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks unless Rails.env.test?
   
   belongs_to :user
   belongs_to :company, optional: true
@@ -17,29 +18,5 @@ class Project < ApplicationRecord
   validates :name, :repository, :cost, :user_id, presence: true
   validates :name, uniqueness: true
 
-  settings index: { number_of_shards: 1 } do
-   mappings dynamic: false do
-     indexes :name, type: :text
-     indexes :repository, type: :text, analyzer: :english
-     indexes :cost, type: :text, analyzer: :english
-     indexes :start_at, type: :text, analyzer: :english
-   end
- end
-
-  def self.search(query)
-    __elasticsearch__.search(
-     {
-      query: {
-       multi_match: {
-        query: query,
-        fields: ['name', 'repository', 'cost', 'start_at', 'user_id', 'team_id']
-       }
-     }
-    }
-    )
-   end
 end
-
-  
-
  
