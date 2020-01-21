@@ -3,17 +3,23 @@
 one:
   name: MyString
   description: MyString
+<<<<<<< HEAD
   starts_at: 2020-01-06 14:36:25
   ends_at: 2020-01-06 14:36:25
   status: true
   user: matias
   project: one
+=======
+  plock_time: 160
+  status: false
+  user: one
+  project: two
+>>>>>>> master
 
 two:
   name: MyString
   description: MyString
-  starts_at: 2020-01-06 14:36:25
-  ends_at: 2020-01-06 14:36:25
+  plock_time: 200
   status: false
   user: matias
   project: two
