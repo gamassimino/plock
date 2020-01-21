@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {
   View,
   Image,
@@ -7,80 +8,73 @@ import {
   Button,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from 'react-native';
-import axios from 'axios';
+import HomeScreen from '../home/HomeScreen';
+const { useEffect, useState } = React
 
-export default class SignInScreen extends React.Component {
-  static navigationOptions ={
-    header: null,
-  };
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: ''
-    }
-  }
+export const SignInScreen = () => {
+  const [email, setEmail] = useState('')
+  const [pass, setPassword] = useState('')
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../home/68930.png')
-                  : require('../home/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
 
-        <View style={styles.acomodar}>
-          <Text style={styles.getStartedText}>
-            Inicia sesión
-          </Text>
-
-          <View style={styles.inputPlus}>
-            <TextInput
-              placeholder="Usuario"
-              style={styles.input1}
-              onChangeText={(value) => this.setState({ username: value })}
-              value={this.state.username}
-              maxLength = {10}
-            />
-
-            <TextInput
-              maxLength = {10}
-              placeholder="Contraseña"
-              style={styles.input2}
-              secureTextEntry={true}
-              onChangeText={(value) => this.setState({ password: value })}
-              value={this.state.password}
-            />
-          </View>
-          <View style={styles.centerButton}>
-            <View style={styles.button}>
-              <Button color="#F2B558" title="Iniciar" onPress={this._signIn} />
-            </View>
-
-            <View style={styles.button}>
-              <Button color="#37435D" title="Crear usuario" onPress={this._handleCreateAccount} />
-            </View>
-          </View>
-        </View>
-
+  return(
+    <View style={styles.container}  >
+      <View style={styles.welcomeContainer} >
+        <Image
+          source={
+            __DEV__
+              ? require('../home/68930.png')
+              : require('../home/robot-prod.png')
+          }
+          style={styles.welcomeImage}/>
       </View>
 
+      <View style={styles.acomodar}>
+        <Text style={styles.getStartedText}>
+          Inicia sesión
+        </Text>
 
-    );
-  }
+        <View style={styles.inputPlus}>
+          <TextInput
+            placeholder="Email"
+            style={styles.input1}
+            onChangeText={email => setEmail( email )}
+            value={email}
+            maxLength = {10}
+          />
+
+          <TextInput
+            maxLength = {10}
+            placeholder="Password"
+            style={styles.input2}
+            secureTextEntry={true}
+            onChangeText={ pass => setPassword(pass)}
+            value={pass}
+          />
+        </View>
+        <View style={styles.centerButton}>
+          <View style={styles.button}>
+            <Button color="#F2B558" title="Iniciar Sesion" onPress={signIn} />
+          </View>
+
+          <View style={styles.button}>
+            <Button color="#37435D" title="Crear usuario"  />
+          </View>
+        </View>
+      </View>
+    </View>
+  );
 
   _handleCreateAccount = async () => {
   };
 
-  _signIn = () => {
-    this.props.navigation.navigate('Home');
+  signIn = async () => {
+    console.log(email);
+    console.log("---------------");
+    console.log(pass);
+
+
   };
 }
 

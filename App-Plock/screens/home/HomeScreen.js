@@ -10,54 +10,50 @@ import {
   View,
 } from 'react-native';
 
-export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    header: null,
-  };
+export const HomeScreen = () =>{
 
-  render() {
-    const { navigation } = this.props;
-    return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('./plock.png')
-                  : require('./robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
+  const { navigation } = this.props;
+  return (
+    <View style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <View style={styles.welcomeContainer}>
+          <Image
+            source={
+              __DEV__
+                ? require('./plock.png')
+                : require('./robot-prod.png')
+            }
+            style={styles.welcomeImage}
+          />
+        </View>
+        <Text style={styles.welcome}>
+           ¿What do you want to do?
+        </Text>
+        <View style={styles.move}>
+          <View style={styles.button}>
+            <Button color="#F2B558" title="Create Track" onPress={this._handlePlay} />
           </View>
-            <Text style={styles.welcome}>
-               ¿What do you want to do?
-            </Text>
-            <View style={styles.move}>
-              <View style={styles.button}>
-                <Button color="#F2B558" title="Create Track" onPress={this._handlePlay} />
-              </View>
 
-              <View style={styles.button}>
-                <Button color="#37435D" title="See my tracks" onPress={this._handleStats} />
-              </View>
+          <View style={styles.button}>
+            <Button color="#37435D" title="See my tracks" onPress={this._handleStats} />
+          </View>
 
-              <View style={styles.button}>
-                <Button color="#37435D" title="See my projects" onPress={this._handleInstructions} />
-              </View>
+          <View style={styles.button}>
+            <Button color="#37435D" title="See my projects" onPress={this._handleInstructions} />
+          </View>
 
-              <View style={styles.button}>
-                <Button color="#37435D" title="See my stats" onPress={this._handlesScore} />
-              </View>
+          <View style={styles.button}>
+            <Button color="#37435D" title="See my stats" onPress={this._handlesScore} />
+          </View>
 
-              <Text onPress={this._handleLogout} style={styles.logout}  >
-                Cerrar Sesión
-              </Text>
-            </View>
-        </ScrollView>
-      </View>
-    );
-  }
+          <Text onPress={this._handleLogout} style={styles.logout}  >
+            Cerrar Sesión
+          </Text>
+        </View>
+      </ScrollView>
+    </View>
+  );
+
 
   _handleLogout = async () => {
   };
