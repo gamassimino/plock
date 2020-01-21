@@ -16,28 +16,12 @@ module Types
       Project.find(id)
     end
 
-    field :user, UserType, null: true do
-      description 'Find a User by ID'
-      argument :id, ID, required: true
-    end
-    def user(id:)
-      User.find(id)
-    end
-
-    field :team, TeamType, null: true do
-      description 'Find a team by ID'
-      argument :id, ID, required: true
-    end
-    def team(id:)
-      Team.find(id)
-    end
-
-    field :company, CompanyType, null: true do
-      description 'Find a company by ID'
-      argument :id, ID, required: true
-    end
-    def company(id:)
-      Company.find(id)
+    field :user,
+      UserType,
+      null: true,
+      description: 'all user data'
+    def user
+      current_user
     end
 
     field :projects,
