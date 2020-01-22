@@ -10,6 +10,7 @@ require("channels")
 require("packs/d3.v3.min")
 require("packs/d3.tip.v0.6.3")
 require("packs/custom/user_show")
+require("packs/custom/user")
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference

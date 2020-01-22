@@ -96,7 +96,7 @@ class CompaniesController < ApplicationController
   end
 
   def accept_invitation_to_company
-    redirect_to new_user_session_path
+    redirect_to edit_user_path(params[:user_id])
   end
 
   private
