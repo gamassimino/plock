@@ -11,6 +11,12 @@ import {
   Alert,
 } from 'react-native';
 import HomeScreen from '../home/HomeScreen';
+import {AsyncStorage} from 'react-native';
+import ApolloClient from 'apollo-boost';
+import gql from 'graphql-tag';
+import { ApolloProvider, Query } from 'react-apollo';
+const client = new ApolloClient({ uri: 'https://localhost:3300/graphql' })
+
 const { useEffect, useState } = React
 
 export const SignInScreen = () => {
