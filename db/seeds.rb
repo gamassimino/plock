@@ -67,4 +67,19 @@ interval_1_track_2.update_attribute(:updated_at, 2.hours.from_now)
 interval_2_track_2 = Interval.create(track: t2)
 interval_2_track_2.update_attribute(:updated_at, 2.hours.from_now)
 
+# 1000.times do |i|
+#   t = Track.create({
+#         name: "Track #{i}",
+#         description: 'It\'s a example',
+#         user: member_user,
+#         project: project
+#     })
+
+#   10.times do |i|
+#       i = Interval.create(track: t2)
+#       i.update_attribute(:updated_at, 10.minutes.from_now)
+#     end
+# end
+
+
 t3.intervals.create

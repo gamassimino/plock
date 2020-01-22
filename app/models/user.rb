@@ -21,24 +21,24 @@ class User < ApplicationRecord
     mapping dynamic: false do
       indexes :name, analyzer: 'english'
       indexes :lastname, analyzer: 'english'
-      indexes :email, type: :date, analyzer: 'english'
+      indexes :email, analyzer: 'english'
       indexes :company_id, type: :integer
     end
   end
 
   def as_indexed_json(options = nil)
-    self.as_json( only: [ :name, :lastname, :email, :project_id ] )
+     self.as_json( only: [ :name, :lastname, :email, :company_id ] )
   end
 
-  def self.search(query)
-    __elasticsearch__.search({
-      query: {
-         multi_match: {
-           query: query,
-           fields: ['name', 'lastname', 'email', 'company_id']
-         }
-       }
-    })
-  end
+  # def self.search(query)
+  #   __elasticsearch__.search({
+  #     query: {
+  #        multi_match: {
+  #          query: query,
+  #          fields: ['name', 'lastname', 'email', 'company_id']
+  #        }
+  #      }
+  #   })
+  # end
 end
 
