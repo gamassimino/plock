@@ -15,14 +15,57 @@ import {AsyncStorage} from 'react-native';
 import ApolloClient from 'apollo-boost';
 import gql from 'graphql-tag';
 import { ApolloProvider, Query } from 'react-apollo';
-const client = new ApolloClient({ uri: 'https://localhost:3300/graphql' })
+import { useQuery } from '@apollo/react-hooks';
 
+
+
+const client = new ApolloClient({ uri: 'https://localhost:3300/graphql' })
 const { useEffect, useState } = React
 
+
 export const SignInScreen = () => {
+  const client = new ApolloClient({ uri: 'https://localhost:3300/graphql' })
   const [email, setEmail] = useState('')
   const [pass, setPassword] = useState('')
 
+  const QUERY = gql`
+  {
+     query user{
+      id
+      name
+      lastname
+      email
+      tracks{
+        name
+        status
+      }
+      projects{
+        name
+      }
+      teams{
+        name
+      }
+    }
+  }`
+
+  signIn = async () => {
+    console.log('llegue');
+    <ApolloProvider client={client}>
+        <Query query={QUERY} >
+        {({ loading, error, data }) => {
+            if (loading || error)
+              return Alert.alert('not work')
+            return
+              // <View style={{ flex: 1 }}>
+              //   {this.state.isFontsLoaded ? <AppContainer /> : <View />}
+              // </View>
+              Alert.alert('it work ')
+              console.log(data);
+        }}
+        </Query>
+    </ApolloProvider>
+
+  };
 
   return(
     <View style={styles.container}  >
@@ -76,10 +119,20 @@ export const SignInScreen = () => {
   };
 
   signIn = async () => {
-    console.log(email);
-    console.log("---------------");
-    console.log(pass);
-
+    <ApolloProvider client={client}>
+        <Query query={QUERY} >
+        {({ loading, error, data }) => {
+            if (loading || error)
+              return Alert.alert('not work')
+            return
+              // <View style={{ flex: 1 }}>
+              //   {this.state.isFontsLoaded ? <AppContainer /> : <View />}
+              // </View>
+              Alert.alert('it work ')
+              console.log(data);
+        }}
+        </Query>
+    </ApolloProvider>
 
   };
 }
