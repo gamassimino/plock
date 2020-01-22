@@ -1,6 +1,6 @@
 class Interval < ApplicationRecord
   belongs_to :track
-  
+
   after_update :calculate_plock_time, if: -> { updated_at_previously_changed? }
 
   private
@@ -9,3 +9,4 @@ class Interval < ApplicationRecord
     track.update_attribute(:plock_time, track.plock_time + minutes.to_i)
   end
 end
+

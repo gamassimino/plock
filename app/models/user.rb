@@ -1,14 +1,17 @@
 require 'elasticsearch/model'
 
 class User < ApplicationRecord
-
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks unless Rails.env.test?
-  
+  include Devise::JWT::RevocationStrategies::JTIMatcher
+  include Tokenizable
+
   has_many :team_users
   has_many :tracks
   has_many :teams, through: :team_users
   has_many :projects #, through: :teams, source: :projects
+  belongs_to :company
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -22,11 +25,11 @@ class User < ApplicationRecord
       indexes :company_id, type: :integer
     end
   end
-      
+
   def as_indexed_json(options = nil)
     self.as_json( only: [ :name, :lastname, :email, :project_id ] )
   end
-      
+
   def self.search(query)
     __elasticsearch__.search({
       query: {
@@ -38,3 +41,4 @@ class User < ApplicationRecord
     })
   end
 end
+

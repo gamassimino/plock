@@ -2,11 +2,11 @@
 require 'elasticsearch/model'
 
 class Track < ApplicationRecord
-
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks unless Rails.env.test?
-  
+
   validates :name, :description, presence: true
+
   has_many :intervals
   belongs_to :project, dependent: :destroy
   belongs_to :user, dependent: :destroy
@@ -21,7 +21,7 @@ class Track < ApplicationRecord
       indexes :project_id, type: :integer
     end
   end
-  
+
   def self.search(query)
     __elasticsearch__.search({
       query: {
@@ -33,3 +33,4 @@ class Track < ApplicationRecord
     })
   end
 end
+

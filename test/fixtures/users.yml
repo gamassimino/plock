@@ -27,6 +27,3 @@ user2:
   name: user2
   lastname: user2Je
   email: user2@gmail.com
-#
-two: {}
-# column: value

@@ -5,20 +5,21 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-    user_id: 1
-    team_id: 1
-# column: value
-#
+    user: one
+    team: one
+
 two:
-    user_id: 2
-    team_id: 2
-# column: value
+    user: two
+    team: one
+
+three:
+    user: matias
+    team: one
 
 teamUser1:
     user_id: 999
     team_id: 999
 
-teamUser1:
+teamUser2:
     user_id: 888
     team_id: 888
-
