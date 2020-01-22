@@ -4,8 +4,17 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { NativeRouter, Route, Link } from "react-router-native";
 
 import AppNavigator from './navigation/AppNavigator';
+
+
+
+import Login from './screens/signIn/SignInScreen';
+import Home from './screens/home/HomeScreen';
+
+
+
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -26,6 +35,36 @@ export default function App(props) {
       </View>
     );
   }
+
+  <NativeRouter>
+    <View style={styles.container}>
+      <View style={styles.nav}>
+        <Link to="/" underlayColor="#f0f4f7" style={styles.navItem}>
+          <Text>Home</Text>
+        </Link>
+        <Link
+          to="/about"
+          underlayColor="#f0f4f7"
+          style={styles.navItem}
+        >
+          <Text>About</Text>
+        </Link>
+        <Link
+          to="/topics"
+          underlayColor="#f0f4f7"
+          style={styles.navItem}
+        >
+          <Text>Topics</Text>
+        </Link>
+      </View>
+
+      <Route exact path="/" component={Login} />
+      <Route path="/about" component={Home} />
+    </View>
+  </NativeRouter>
+
+
+
 }
 
 async function loadResourcesAsync() {

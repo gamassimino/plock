@@ -19,18 +19,24 @@ import { useQuery } from '@apollo/react-hooks';
 
 
 
-const client = new ApolloClient({ uri: 'https://localhost:3300/graphql' })
+const client = new ApolloClient({ uri: 'http://192.168.1.103:3300/graphql' })
 const { useEffect, useState } = React
 
 
 export const SignInScreen = () => {
-  const client = new ApolloClient({ uri: 'https://localhost:3300/graphql' })
+
+  SignInScreen.navigationOptions = {
+    title: 'Home',
+  };
+
+
+  //const client = new ApolloClient({ uri: 'https://localhost:3300/graphql' })
   const [email, setEmail] = useState('')
   const [pass, setPassword] = useState('')
 
   const QUERY = gql`
   {
-     query user{
+   user{
       id
       name
       lastname
@@ -49,22 +55,15 @@ export const SignInScreen = () => {
   }`
 
   signIn = async () => {
-    console.log('llegue');
-    <ApolloProvider client={client}>
-        <Query query={QUERY} >
-        {({ loading, error, data }) => {
-            if (loading || error)
-              return Alert.alert('not work')
-            return
-              // <View style={{ flex: 1 }}>
-              //   {this.state.isFontsLoaded ? <AppContainer /> : <View />}
-              // </View>
-              Alert.alert('it work ')
-              console.log(data);
-        }}
-        </Query>
-    </ApolloProvider>
 
+    console.log('llegue');
+    client.query({
+      query: gql`{
+        project(id: 1){
+          name
+        }
+      }`,
+    }).then(result => console.log(result))
   };
 
   return(
@@ -117,25 +116,14 @@ export const SignInScreen = () => {
 
   _handleCreateAccount = async () => {
   };
-
-  signIn = async () => {
-    <ApolloProvider client={client}>
-        <Query query={QUERY} >
-        {({ loading, error, data }) => {
-            if (loading || error)
-              return Alert.alert('not work')
-            return
-              // <View style={{ flex: 1 }}>
-              //   {this.state.isFontsLoaded ? <AppContainer /> : <View />}
-              // </View>
-              Alert.alert('it work ')
-              console.log(data);
-        }}
-        </Query>
-    </ApolloProvider>
-
-  };
 }
+
+export default SignInScreen;
+
+SignInScreen.navigationOptions = {
+  header: null,
+};
+
 
 const styles = StyleSheet.create({
   container: {

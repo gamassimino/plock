@@ -4,7 +4,7 @@ module Types
   # class QueryType
   #
   class QueryType < Types::BaseObject
-    def current_user 
+    def current_user
       context[:current_user]
     end
 
@@ -29,15 +29,7 @@ module Types
       null: true,
       description: 'Returns a list of projects created by the user registered in plock'
     def projects
-      current_user.projects
-    end
-
-    field :tracks_user,
-      [TrackType],
-      null: true,
-      description: 'Returns a list of user logged projects into plock'
-    def tracks_user
-      current_user.tracks
+      current_user&.projects
     end
   end
 end

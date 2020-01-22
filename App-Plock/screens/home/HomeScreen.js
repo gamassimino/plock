@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 
-export const HomeScreen = () =>{
+const HomeScreen = () =>{
 
   const { navigation } = this.props;
   return (
@@ -74,6 +74,12 @@ export const HomeScreen = () =>{
   };
 
 }
+
+export default HomeScreen;
+
+HomeScreen.navigationOptions = {
+  header: null,
+};
 
 const styles = StyleSheet.create({
   container: {
