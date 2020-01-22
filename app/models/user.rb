@@ -24,7 +24,7 @@ class User < ApplicationRecord
   end
       
   def as_indexed_json(options = nil)
-    self.as_json( only: [ :name, :lastname, :email, :company_id ] )
+    self.as_json( only: [ :name, :lastname, :email, :project_id ] )
   end
       
   def self.search(query)
@@ -32,9 +32,9 @@ class User < ApplicationRecord
       query: {
          multi_match: {
            query: query,
-           fields: ['name^5', 'lastname', 'email', 'company_id']
+           fields: ['name', 'lastname', 'email', 'company_id']
          }
-       },
+       }
     })
   end
 end

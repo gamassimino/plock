@@ -14,6 +14,9 @@ class SearchController < ApplicationController
 
     def search_user
         @user = params[:q].nil? ? [] : User.search(params[:q])
+        puts "--------------------------------------------------------"
+        puts User.search(params[:q]).to_json
+        puts "--------------------------------------------------------"
     end
 
 end

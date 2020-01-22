@@ -21,19 +21,15 @@ class Track < ApplicationRecord
       indexes :project_id, type: :integer
     end
   end
-      
-  def as_indexed_json(options = nil)
-    self.as_json( only: [ :name, :description, :status, :plock_time, :user_id, :project_id ] )
-  end
-      
+  
   def self.search(query)
     __elasticsearch__.search({
       query: {
-         multi_match: {
+         filter: {
            query: query,
-           fields: ['name', 'description', 'status', 'user_id', 'project_id']
+           fields: ['plock_time']
          }
-       },
+       }
     })
   end
 end
