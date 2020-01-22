@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     def dataUser
       render json: current_user.tracks.map {|track| {
         task: track.name,
-        hour: UserTrackStat.new(track).call }
+        hour: track.plock_time }
       }.reject(&:empty?)  
     end
     

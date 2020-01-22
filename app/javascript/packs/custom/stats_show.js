@@ -26,7 +26,7 @@ document.onreadystatechange = () => {
             width = 960 - margin.left - margin.right,
             height = 500 - margin.top - margin.bottom;
             
-            var formatPercent = d3.format(".0.0%");
+            var formatPercent = d3.format("0");
             
             var x = d3.scale.ordinal()
             .rangeRoundBands([0, width], .1);
@@ -47,7 +47,7 @@ document.onreadystatechange = () => {
             .attr('class', 'd3-tip')
             .offset([-10, 0])
             .html(function(d) {
-              return "<strong> hour: </strong> <span style='color:green'>" + d.hour + " hs </span>";
+              return "<strong> min: </strong> <span style='color:green'>" + d.hour + " min </span>";
             })
           
             var svg = d3.select("body").append("svg")
@@ -75,7 +75,7 @@ document.onreadystatechange = () => {
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("hour");
+            .text("min");
           
             svg.selectAll(".bar")
             .data(dataProject)
@@ -115,7 +115,7 @@ document.onreadystatechange = () => {
           width = 960 - margin.left - margin.right,
           height = 500 - margin.top - margin.bottom;
           
-          var formatPercent = d3.format(".0.0%");
+          var formatPercent = d3.format("0");
           
           var x = d3.scale.ordinal()
           .rangeRoundBands([0, width], .1);
@@ -136,7 +136,7 @@ document.onreadystatechange = () => {
           .attr('class', 'd3-tip')
           .offset([-10, 0])
           .html(function(d) {
-            return "<strong> hour: </strong> <span style='color:green'>" + d.hour + " hs </span>";
+            return "<strong> min: </strong> <span style='color:green'>" + d.hour + " min </span>";
           })
 
           var svg = d3.select("body").append("svg")
@@ -164,7 +164,7 @@ document.onreadystatechange = () => {
           .attr("y", 6)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
-          .text("hour");
+          .text("min");
 
           svg.selectAll(".bar")
           .data(dataUser)

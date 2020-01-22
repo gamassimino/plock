@@ -4,13 +4,11 @@ class ProjectUserStat
     end
   
     def call
-        cont = 0
+        count = 0
         @user.tracks.all.each do |track| 
-            a = UserTrackStat.new(track).call
-            b = a.to_s.split(".")[1].to_f
-            cont = ( cont + (a.round * 60 ) + b ).to_f  
+            count = count + track.plock_time 
         end
-        return (((cont/60).to_f).round(2))
+        return count.to_i
     end
 end    
              

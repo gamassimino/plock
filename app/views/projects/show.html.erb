@@ -37,8 +37,7 @@
         <tr>
           <th>Name</th>
           <th>Description</th>
-          <th>Date start</th>
-          <th>Date end</th>
+          <th>plock_time</th>
           <th>State</th>
           <th colspan="3"></th>
         </tr>
@@ -47,8 +46,7 @@
       <tr>
           <td><%= track.name %>&nbsp&nbsp</td>
           <td><%= track.description %>&nbsp</td>
-          <td><%= track.starts_at %>&nbsp</td>
-          <td><%= track.ends_at %>&nbsp</td>
+          <td><%= track.plock_time %>&nbsp</td>
           <% if track.status %>
             <td> Finalized&nbsp </td>
           <% else %>
