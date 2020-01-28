@@ -100,6 +100,6 @@
   width: 20%;
 }
 
-.admin-form input {
+.admin-form input, .admin-form select {
   width: 80%;
 }

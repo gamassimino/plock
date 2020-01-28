@@ -39,6 +39,7 @@ Rails.application.routes.draw do
       end
       resources :users do
         get :users_table, on: :collection
+        get :user_select, on: :collection
       end
       resources :projects do
         get :projects_table, on: :collection

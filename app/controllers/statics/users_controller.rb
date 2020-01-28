@@ -3,6 +3,11 @@ class Statics::UsersController < ApplicationController
     render json: User.all
   end
 
+  def user_select
+    users = User.all.map{ |u| [u.name, u.id] }
+    render json: users
+  end
+
   def index
     @record = 'users'
     render 'statics/index'

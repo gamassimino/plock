@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
+import Header from './Header'
 import ModelList from './ModelList'
+import Footer from './Footer'
 
 const Dashboard = props => {
-  const [Data, setData] = useState();
+  const [data, setData] = useState();
   const [user, setUser] = useState('')
 
   async function fetchData() {
@@ -11,7 +13,7 @@ const Dashboard = props => {
     companies_fetch
       .json()
       .then(res => setData(res));
-  }  
+  }
 
   useEffect(() => {
     fetchData();
@@ -19,17 +21,9 @@ const Dashboard = props => {
 
   return(
     <div>
-      <br/>
-      <nav className="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-        <a className="navbar-brand" href="/"> <b> Plock Admin Dashboard</b> </a>
-        <div className="navbar-nav ml-auto"></div>
-      </nav>
-
-      <ModelList  {...Data} />
-
-      <footer className="bg-dark admin-footer">
-        Plock timesheets ® Plum
-      </footer>
+      <Header />
+      <ModelList  {...data} />
+      <Footer />
     </div>
   )
 }
