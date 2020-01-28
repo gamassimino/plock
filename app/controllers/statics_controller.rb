@@ -1,4 +1,6 @@
 class StaticsController < ApplicationController
+  layout 'admin'
+  
   def dashboard
   end
 
