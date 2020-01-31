@@ -1,24 +1,28 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Form from './Form'
+import { BrowserRouter } from 'react-router-dom'
+
 import Header from './Header'
 import Footer from './Footer'
 
-const AdminNew = props => {
+import Router from './Router';
+
+const App = props => {
   return(
-    <div>
+    <BrowserRouter>
       <Header />
-      <Form model={props.model}/>
+      <Router />
       <Footer />
-    </div>
+    </BrowserRouter>   
   )
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const node = document.getElementById('model_data');
-  const data = JSON.parse(node.getAttribute('data'));
+  const container = document.getElementById('params_container')
+  const host = container.getAttribute('host')
+
   ReactDOM.render(
-    <AdminNew model={data}/>,
+    <App />,
     document.body.appendChild(document.createElement('div')),
   )
 })

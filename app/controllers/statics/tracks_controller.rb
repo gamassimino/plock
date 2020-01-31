@@ -1,4 +1,6 @@
 class Statics::TracksController < ApplicationController
+  protect_from_forgery with: :null_session
+
   def tracks_table
     render json: Track.all
   end
@@ -24,5 +26,10 @@ class Statics::TracksController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+  def track_params
+    params.require(:track).permit(:name, :description, :plock_time, :status)
   end
 end

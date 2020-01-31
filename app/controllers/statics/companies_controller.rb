@@ -1,10 +1,13 @@
 class Statics::CompaniesController < ApplicationController
-  layout 'admin'
-
   protect_from_forgery with: :null_session
 
   def companies_table
     render json: Company.all
+  end
+
+  def companies_select
+    companies = Company.all.map{ |c| [c.name, c.id] }
+    render json: companies
   end
 
   def index
@@ -24,9 +27,9 @@ class Statics::CompaniesController < ApplicationController
   def create
     company = Company.new company_params
     if company.save
-      redirect_to statics_companies_path
+      render json: {status: :ok}
     else
-      redirect_to new_statics_company_path
+      render json: {status: :internal_server_error}
     end
   end
 

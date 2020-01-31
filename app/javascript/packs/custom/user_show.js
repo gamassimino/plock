@@ -1,7 +1,5 @@
 document.onreadystatechange = () => {
   if (document.readyState === 'complete') {
-  console.log(document.getElementById("graph-d3"))
-
   if (document.getElementById("graph-d3") !== null) {
 
   $.ajax({

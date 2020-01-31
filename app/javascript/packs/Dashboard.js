@@ -1,36 +1,28 @@
-import React, { useState, useEffect } from 'react'
-import ReactDOM from 'react-dom'
-import Header from './Header'
-import ModelList from './ModelList'
-import Footer from './Footer'
+import React, { useState, useEffect } from 'react';
+import ModelList from './ModelList';
 
 const Dashboard = props => {
   const [data, setData] = useState();
-  const [user, setUser] = useState('')
 
   async function fetchData() {
-    const companies_fetch = await fetch("http://localhost:3000/admin/models_count");
+    const container = document.getElementById('params_container')
+    const host = container.getAttribute('host')
+
+    const companies_fetch = await fetch(`${host}/admin/models_count`);
     companies_fetch
       .json()
-      .then(res => setData(res));
+      .then(response => { setData(response) });
   }
 
   useEffect(() => {
     fetchData();
-  }, [user]);
+  }, []);
 
   return(
     <div>
-      <Header />
       <ModelList  {...data} />
-      <Footer />
     </div>
   )
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <Dashboard />,
-    document.body.appendChild(document.createElement('div')),
-  )
-})
+export default Dashboard;

@@ -1,4 +1,6 @@
 class Statics::IntervalsController < ApplicationController
+  protect_from_forgery with: :null_session
+
   def intervals_table
     render json: Interval.all
   end

@@ -26,10 +26,12 @@ Rails.application.routes.draw do
 
   scope :admin do
     get '/', to: 'statics#dashboard'
-    get '/models_count', to: 'statics#models_count'
+    get '/models_count',    to: 'statics#models_count'
+
     namespace :statics do
       resources :companies do
         get :companies_table, on: :collection
+        get :companies_select, on: :collection
       end
       resources :intervals do
         get :intervals_table, on: :collection
@@ -44,7 +46,7 @@ Rails.application.routes.draw do
       resources :projects do
         get :projects_table, on: :collection
       end
-      resources :teams do 
+      resources :teams do
         get :teams_table, on: :collection
       end
     end

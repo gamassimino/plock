@@ -1,22 +1,27 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Model = props => {
+const Model = props => {	
 	return(
 		<div className='box'>
 			<div className='model-count'>
 				{props.count !== undefined ? props.count.toString().padStart(4,'0') : ''}
 			</div>
-			<a href={`/admin/statics/${props.name.toLowerCase()}`}>
-				<div className='model-name'>
-					{props.name}
+			
+			<div className='model-name'>
+				{props.name}
+			</div>
+			
+			<Link to={`/admin/statics/${props.name.toLowerCase()}/new`}>
+				<div className='add-button'>
+					New
 				</div>
-			</a>
-			<div className='add-button'>
-				<a href={`/admin/statics/${props.name.toLowerCase()}/new`}>New</a>
-			</div>
-			<div className='list-button'>
-				<a href={`/admin/statics/${props.name.toLowerCase()}`}>Show All</a>
-			</div>
+			</Link>			
+			<Link to={`/admin/statics/${props.name.toLowerCase()}`}>
+				<div className='list-button'>
+					Show All
+				</div>
+			</Link>
 		</div>
 	)
 }

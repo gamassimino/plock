@@ -1,1 +1,6 @@
-<%= javascript_pack_tag 'Dashboard' %>
+<%= content_tag :div,
+  id: "params_container",
+  host: ENV['HOST'] do %>
+<% end %>
+  
+<%= javascript_pack_tag 'App' %>
