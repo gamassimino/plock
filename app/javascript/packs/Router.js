@@ -10,7 +10,7 @@ import TeamsNew from './TeamsNew';
 import Dashboard from './Dashboard';
 import Index from './Index';
 
-const Router = ({match}) => {
+const Router = () => {
 	return(
 		<Switch>
 			<Route exact path="/admin" component={Dashboard} />

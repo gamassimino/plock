@@ -70,19 +70,22 @@
 .admin-table{
   width:80%;
   margin: 5% 10% 5% 10%;
-  text-align: center;   
-  border-collapse:collapse; 
-  border: 1px solid black;
+  text-align: center;
+  border-collapse:collapse;
 }
-.admin-table td{ 
-  padding:7px; border:#4e95f4 1px solid;
+.admin-table thead{
+  background-color: #272C31;
+  color: white;
+}
+.admin-table td{
+  padding:7px;
 }
 /* provide some minimal visual accomodation for IE8 and below */
 .admin-table tbody tr{
   background: #b8d1f3;
 }
 /*  Define the background color for all the ODD background rows  */
-.admin-table tbody tr:nth-child(odd){ 
+.admin-table tbody tr:nth-child(odd){
   background: #b8d1f3;
 }
 /*  Define the background color for all the EVEN background rows  */

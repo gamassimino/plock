@@ -2,38 +2,32 @@ import React from 'react'
 
 const model_table_header = function(models){
   let model = models[0];
-  let header = '<tr>';
-  for (var key of Object.keys(model)) {
-    if (key !== 'created_at' && key.toString() !== 'updated_at')
-      header = header + `<th>${key}</th>`;
-  }
-  header = header + '</tr>';
-  document.getElementById('table-header').innerHTML = header;
-}
+  let header = document.getElementById('table-header');
+  let row = header.insertRow(0);
 
-const model_table = function (models) {
-  let table_rows = ''
-  models.forEach(model => {
-    table_rows = table_rows + model_row(model);
-    document.getElementById('table-body').innerHTML = table_rows;
+  Object.keys(model).forEach((key, i) => {
+    let cell = row.insertCell(i);
+    cell.innerHTML = `<th>${key}</th>`;
   });
 }
 
-const model_row = function (model) {
-  let row = '<tr>';
-  for (var key of Object.keys(model)) {
-    if (key !== 'created_at' && key.toString() !== 'updated_at')
-      row = row + `<th>${model[key]}</th>`;
-  }
-  row = row + '</tr>'
-  return row;
-}
+const model_table = function (models) {
+  let body = document.getElementById('table-body');
+  models.forEach((model, i) => {
+    let index = i === 0 ? 0 : -1;
+    let row = body.insertRow(index);
 
+    Object.keys(model).forEach((key, j) => {
+      let cell = row.insertCell(j);
+      cell.innerHTML = `<th>${model[key]}</th>`
+    })
+  });
+};
 
 const Table = props => {
   return(
     <div>
-      <table className='admin-table'>
+      <table className='admin-table' id='table'>
         <thead id='table-header'>
           {props.models.forEach( models => model_table_header(models)) }
         </thead>
